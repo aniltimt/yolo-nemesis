@@ -1,0 +1,159 @@
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}img,body,html{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;}q:before,q:after{content:'';}
+
+html, body {
+  background-color: #eee;
+}
+body {
+  padding-top: 10px; /* 40px to make the container go all the way to the bottom of the topbar */
+}
+
+/* The white background content wrapper */
+.content {
+  background-color: #fff;
+  padding: 20px;
+  float:left;
+  width:100%;
+  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+  -webkit-border-radius: 6px 6px 6px 6px;
+     -moz-border-radius: 6px 6px 6px 6px;
+          border-radius: 6px 6px 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+          box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+table.datagrid {
+  border-collapse: collapse;
+  width:100%;
+}
+
+table.datagrid td, table.datagrid th {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+th.tour_actions, th.user_actions {
+	width: 20%;
+}
+
+th.tour_id {
+	width: 10%;
+}
+
+form .clearfix, .details .clearfix {
+  margin-bottom:18px;
+  zoom:1;
+}
+
+.details label {
+  font-weight:bold;
+  margin-right:10px;
+}
+
+#clients_list {
+  margin-top:20px;
+}
+
+.row div {padding: 5px; margin: 5px;}
+.row div.span3 {font-weight: bold;}
+.client_info {margin-top:20px;border:1px solid #CCC;border-radius:5px; -moz-border-radius: 5px;}
+.client_info .details {background-color:#F4F4F4;padding:10px;}
+.client_info h4 {margin-left:10px; line-height: 36px;}
+.client_info .row {margin-left: -11px;}
+
+.user_name_errors, .email_address_errors, .user_password_errors, .quantity_errors {color: red; margin-top:5px;}
+.user_name_errors li, .email_address_errors li, .user_password_errors li {color: red;}
+.user-type-switch {float:right}
+
+/*----------------------------------------------
+Login screen 
+-----------------------------------------------*/
+
+.login_container {
+  width:230px;
+  margin: 7em auto;
+}
+
+.login_container input {
+  width:200px;
+}
+
+.drop-shadow {
+    position:relative;
+    float:left;
+    /*width:40%;  */
+    padding:1em; 
+    margin:2em 10px 4em; 
+    background:#fff;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.drop-shadow:before,
+.drop-shadow:after {
+    content:"";
+    position:absolute; 
+    z-index:-2;
+}
+
+.raised {
+  -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.drop-shadow:before,
+.drop-shadow:after {
+    content:"";
+    position:absolute; 
+    z-index:-2;
+}
+
+/* Curved shadows */
+
+.curved {
+    position:relative;
+    padding:1em; 
+    margin:0 10px 0; 
+    background:#fff;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.curved:before {
+  top:10px;
+  bottom:10px;
+  left:0;
+  right:50%;
+  -webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);
+  -moz-box-shadow:0 0 15px rgba(0,0,0,0.6);
+  box-shadow:0 0 15px rgba(0,0,0,0.6);
+  -moz-border-radius:10px / 100px;
+  border-radius:10px / 100px;
+}
+        
+.curved-vt-2:before {
+  right:0;
+}
+
+/*--------------------------------------------------------------------------------*/
+.generate_users_spinner {
+  width:16px;
+  height:16px;
+  float:left;
+  margin-left:20px;
+}
+
+/*--------------------------------------------------------------------------------*/
+#leaflet_map {
+  height:400px;
+  width:500px;
+  float:right;
+}
+
+/* filter form */
+.filter .row {
+  margin-left: 0px;
+}

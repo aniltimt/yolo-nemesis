@@ -1,0 +1,21 @@
+<ul class="breadcrumb">
+  <li>
+    <%= link_to 'Dashboard', admin_root_url %>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">Users</li>
+</ul>
+
+<div style="clear:both"></div>
+
+<div class="user-type-switch">
+  <a class="btn <%= (@type == 'all' ? 'active' : '') %>" href="?type=all">All</a>
+  <a class="btn <%= (@type == 'registered' ? 'active' : '') %>" href="?type=registered">Registered</a>
+  <a class="btn <%= (@type == 'generated' ? 'active' : '') %>" href="?type=generated">Generated</a>
+</div>
+
+<div style="clear:both"></div>
+
+<div id="users_container">
+  <%= render :partial => "users_core" %>
+</div>

@@ -1,0 +1,13 @@
+<div style="background-color:#FFF;width:99%;margin-top:10px;border:1px solid #CCC;border-radius:5px; -moz-border-radius: 5px;padding:5px;">
+  <div style="float:left"><h3>Generated Users</h3></div>
+
+  <% if ! @client_users.empty? %>
+    <div style="clear:both"></div>
+    <div id="associated_users_container">
+    <%= render :partial => "associated_users_core" %>
+    </div>
+  <% else %>
+    <div style="clear:both"></div>
+    <div>No generated users.</div>
+  <% end %>
+</div>

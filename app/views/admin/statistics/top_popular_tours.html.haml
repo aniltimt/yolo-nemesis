@@ -1,0 +1,16 @@
+%ul.breadcrumb
+  %li
+    = link_to 'Dashboard', admin_root_url
+    %span.divider /
+  %li.active
+    Top popular tours
+%table.table.table-striped
+  - unless @top_popular.empty?
+    %thead
+      %tr
+        %th.tour_id ID
+        %th Tour
+        %th Number of orders
+    %tbody
+      - @top_popular.each do |tour|
+        = render :partial => 'tour', :object => tour

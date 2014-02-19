@@ -1,0 +1,15 @@
+<div id="delete_client_modal_dialog" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>Delete Client?</h3>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete client?</p>
+  </div>
+  <div class="modal-footer">
+    <div style="float:right;margin-left:10px;margin-top:5px;">or
+      <a href="#" onclick="$('#delete_client_modal_dialog').modal('hide')">Cancel</a>
+    </div>
+    <%= link_to "Delete Client", admin_client_path(@client.id), :method => :delete, :class => "btn danger" %>
+  </div>
+</div>

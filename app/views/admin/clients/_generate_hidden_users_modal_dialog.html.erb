@@ -1,0 +1,25 @@
+<div id="generate_hidden_users_modal_dialog" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3><%= @client.name %>: Generate Users</h3>
+  </div>
+  <%= form_tag admin_clients_generate_users_path(@client.id), :class => "form-horizontal", :onsubmit => "return generate_users_btn_onsubmit()" do %>
+  <div class="modal-body">
+    <div class="control-group">
+      <label for="quantity" class="control-label">Quantity: </label>
+      <div class="controls">
+        <input class="xlarge" name="quantity" id="quantity" size="30" type="text" style="float:left"/>
+        <div class="generate_users_spinner" style="display:none"><img src="/images/spinner.gif" alt="Please wait"/></div>
+        <div style="clear:both"></div>
+        <div class="quantity_errors"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div style="float:right;margin-left:10px;margin-top:5px;">or
+      <a href="#" onclick="$('#generate_hidden_users_modal_dialog').modal('hide')">Cancel</a>
+    </div>
+    <input type="submit" class="btn btn-danger generate_users_btn" value="Generate"/>
+  </div>
+  <% end %>
+</div>

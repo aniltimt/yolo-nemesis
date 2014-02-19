@@ -1,0 +1,11 @@
+%tr
+  %td
+    = user.id
+  %td
+    = user.name_or_email
+  %td
+    = user.oauth_users.blank? ? '-' : user.oauth_users.map{|ou| ou.provider}.join(', ')
+  %td
+    = user.orders.count
+  %td
+    = link_to "Orders", admin_user_orders_url(user), :class => 'btn info'

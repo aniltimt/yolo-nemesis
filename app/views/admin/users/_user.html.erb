@@ -1,0 +1,7 @@
+<tr>
+  <td><%= user.id %></td>
+  <td><%= user.email.blank? ? user.oauth_users.map{|ou| ou.nickname}.join(', ') : user.email %></td>
+  <td><%= user.oauth_users.blank? ? '-' : user.oauth_users.map{|ou| ou.provider}.join(', ') %></td>
+  <td><%= user.orders.count %></td>
+  <td id="action_<%= user.id %>"><%= link_to "Orders", admin_user_orders_url(user), :class => 'btn info' %></td>
+</td>

@@ -1,0 +1,32 @@
+<div id="associate_tours_modal_dialog" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3><%= @client.name %>: Add Tour</h3>
+  </div>
+  <%= form_tag admin_clients_save_tours_path(@client.id) do %>
+  <div class="modal-body" style="height:400px;overflow:auto;">
+    <table class="zebra-striped">
+      <thead>
+        <th>ID</th><th>Name</th><th>Status</th><th>Created</th><th>Action</th>
+      </thead>
+      <tbody>
+        <% @available_tours.each do |tour| %>
+          <tr>
+            <td><%= tour.id %></td>
+            <td><%= tour.name %></td>
+            <td><%= tour.status %></td>
+            <td><%= tour.created_at.to_date %></td>
+            <td><input type="checkbox" name="tour_id[]" value="<%= tour.id %>" <%= @client_tour_ids.include?(tour.id) ? 'checked="checked"' : '' %>/></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <div style="float:right;margin-left:10px;margin-top:5px;">or
+      <a href="#" onclick="$('#associate_tours_modal_dialog').modal('hide')">Cancel</a>
+    </div>
+    <button class="btn primary">Save</button>
+  </div>
+  <% end %>
+</div>

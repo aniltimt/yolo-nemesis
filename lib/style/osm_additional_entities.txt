@@ -1,0 +1,6 @@
+<!-- DB settings -->
+<!ENTITY db_host "host">
+<!ENTITY db_port "port">
+<!ENTITY db_user "user">
+<!ENTITY db_pass "pass">
+<!ENTITY db_name "name">

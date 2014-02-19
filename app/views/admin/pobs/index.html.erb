@@ -1,0 +1,52 @@
+<div class="left">
+  <%= form_tag "/admin/pobs/search", :method => :get do -%>
+    <div class="filter">
+      <div class="row">
+        <div class="span1">Name:</div><div class="span3"><%= text_field_tag 'pob[name]', @pob_name %></div>
+        <div class="span1">City:</div><div class="span3"><%= text_field_tag 'pob[city]', @pob_city %></div>
+        <div class="span1"><%= submit_tag "Filter", :class => "btn btn-primary" %></div>
+        <div class="span1"><%= submit_tag "Reset", :onclick => "reset_pob_filter(); return false;", :class => "btn btn-danger" %></div>
+      </div>
+      <div class="row">
+        <div class="span1">Country:</div><div class="span3"><%= select_tag('pob[country]', options_for_select(@countries, @pob_country), :include_blank => true) %></div>
+        <div class="span1">Category:</div><div class="span3"><%= select_tag 'pob[category]', options_from_collection_for_select(PobCategory.all, "id", "name", @pob_category), {:multiple => true} %></div>
+        <div class="span3">
+          <a href="/admin/pobs/coupons/search">Search coupons</a><br />
+          <a href="/admin/pobs/banners/search">Search banners</a>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  <% end -%>
+ 
+  <h2 style="text-align:center">POBs count: <%= @pobs_count %></h2>
+
+  <div style="float:right">
+    <%= link_to "Create new POB", new_admin_pob_path, :class => "btn btn-primary" %>
+  </div>
+
+  <%= will_paginate @pobs, :params => {:pob => {:country => @pob_country, :name => @pob_name, :city => @pob_city, :category => @pob_category}} %>
+
+  <table class="table table-striped">
+    <thead>
+      <th>#</th>
+      <th>Name</th>
+      <th>Country/City</th>
+      <th>Categories</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      <% @pobs.each do |pob| %>
+      <tr>
+        <td><%= pob.id %></td>
+        <td><%= link_to pob.name, admin_pob_path(pob) %></td>
+        <td><%= pob.country %> / <%= pob.city %></td>
+        <td><%= pob.pob_categories.map{|cat| cat.name}.join(', ') %></td>
+        <td><%= link_to "Edit", edit_admin_pob_path(pob), :class => "btn btn-info" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= will_paginate @pobs %>
+</div>

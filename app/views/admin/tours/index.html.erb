@@ -1,0 +1,18 @@
+<ul class="breadcrumb">
+  <li>
+    <%= link_to 'Dashboard', admin_root_url %>
+    <span class="divider"> / </span>
+  </li>
+  <li class="active">Tours</li>
+</ul>
+
+<div class="tour-type-switch">
+  <a class="btn <%= (@type == 'all' ? 'active' : '') %>" href="?type=all">All</a>
+  <a class="btn <%= (@type == 'regular' ? 'active' : '') %>" href="?type=regular">Regular</a>
+  <a class="btn <%= (@type == 'ubertours' ? 'active' : '') %>" href="?type=ubertours">Ubertours</a>
+  <a class="btn btn-warning" href="/admin/tours/pending">Pending</a>
+</div>
+
+<div id="tours_container">
+  <%= render :partial => "tours_core" %>
+</div>

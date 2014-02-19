@@ -1,0 +1,7 @@
+if(<%= ! @client.errors.empty? %>) {
+  jQuery('.email_address_errors').html('<%= raw @client.errors.full_messages.select{|m| m =~ /Email/}.collect{|m| "<li>#{escape_javascript(m)}</li>"}.first %>');
+  jQuery('.user_name_errors').html('<%= raw @client.errors.full_messages.select{|m| m =~ /Name/}.collect{|m| "<li>#{escape_javascript(m)}</li>"}.first %>');
+  jQuery('.user_password_errors').html('<%= raw @client.errors.full_messages.select{|m| m =~ /Password/}.collect{|m| "<li>#{escape_javascript(m)}</li>"}.first %>');
+} else {
+  location.href = '/admin/clients/<%= @client.id %>';
+}

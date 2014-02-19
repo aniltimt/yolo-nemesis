@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" />
+<!--[if lte IE 8]>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css" />
+<![endif]-->
+
+<script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+
+<h2 style="text-align:center">Create new POB</h2>
+
+<div id="leaflet_map"></div>
+
+<%= simple_form_for([:admin, @pob], :validate => true, :html => {:multipart => true, :class => 'form-horizontal', :style => "width:420px;float:left" }) do |f| %>
+  <%= render :partial => "admin/pobs/form", :locals => {:f => f} %>
+<% end %>

@@ -1,0 +1,27 @@
+  <%= error_messages_for :banner %>
+
+  <%= f.input :name, :label => 'Name', :required => true %>
+
+  <%= f.input :banner_type, :as => :select, :selected => @banner.banner_type, :collection => Banner::TYPE_CHOICES.invert, :required => false, :disabled => false   %>
+
+  <%= f.association :coupon, :as => :select, :required => false, :collection => @coupons, :disabled => false, :wrapper_html => { :class => "coupon" }   %>
+
+  <%= f.input :bg_color, :as => :select, :required => false, :collection => Banner::COLORS, :disabled => false, :wrapper_html => { :class => "pob" }   %>
+
+  <%= f.input :text_color, :as => :select, :required => false, :collection => ["000000", "FFFFFF"], :disabled => false, :wrapper_html => { :class => "pob" }   %>
+
+  <%= f.input :text, :label => 'Banner text', :required => true, :wrapper_html => { :class => "pob" }%>
+
+  <%= f.input :pob_id, :as => :hidden, :input_html => {:value => @pob.id}, :required => true  %>
+
+  <%= f.input :image, :as => :file, :label => 'Image (640x100px)', :required => false, :wrapper_html => { :class => "coupon" } %>
+
+  <div class="control-group coupon">
+    <% if @banner.image && @banner.image_url && @banner.errors[:image].blank? %>
+      <%= image_tag @banner.image_url, :style => 'margin: 0 0 20px 100px;' %>
+    <% end %>
+  </div>
+
+  <%= f.button :submit %>
+  <%= link_to 'Cancel', session[:return_to_banners], {:class => "btn btn-info"} %>  
+

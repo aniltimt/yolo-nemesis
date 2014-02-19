@@ -1,0 +1,33 @@
+!!!
+%html
+  %head
+    %title Market API Admin
+    = stylesheet_link_tag 'bootstrap.min'
+    = stylesheet_link_tag 'style'
+    = stylesheet_link_tag 'jquery.colourPicker'
+    = javascript_include_tag(:defaults)
+    = javascript_include_tag "https://www.google.com/jsapi"
+    = javascript_include_tag 'rails.validations'
+    = csrf_meta_tag
+  %body
+    .navbar
+      .navbar-inner
+        %a.brand{:href => '/admin'} Market API
+        %ul.nav
+          %li{:class => current_page?(:controller => 'dashboard') ? 'active' : ''}
+            %a{:href => admin_root_url} Statistics
+          %li{:class => current_page?(:controller => 'tours') ? 'active' : ''}
+            %a{:href => admin_tours_url} Tours
+          %li{:class => current_page?(:controller => 'users') ? 'active' : ''}
+            %a{:href => admin_users_url} Users
+          %li{:class => current_page?(:controller => 'clients') ? 'active' : ''}
+            %a{:href => admin_clients_url} Clients
+          %li.dropdown{:class => current_page?(:controller => 'pobs') ? 'active' : ''}
+            %a{:href => admin_pobs_url} POBs
+        %ul.nav.pull-right
+          %li
+            %a{:href => admin_logout_url} Log out
+    .container
+      .content
+        = render :partial => "admin/clients/notice"
+        = yield

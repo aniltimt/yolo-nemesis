@@ -1,0 +1,19 @@
+<ul class="breadcrumb">
+  <li>
+    <a href="/admin">Dashboard</a>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">
+    <%= link_to @pob.name, admin_pob_path(@pob) %>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">
+    <%= link_to 'Banners', admin_pob_banners_path(@pob) %>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">Edit <%= @banner.name %></li>
+</ul>
+<%= simple_form_for([:admin, @pob, @banner], :validate => true, :html => {:multipart => true, :class => 'form-horizontal banner-form', :style => "width:420px;float:left" }) do |f| %>
+  <%= render :partial => "admin/banners/form", :locals => {:f => f} %>
+<% end %>
+

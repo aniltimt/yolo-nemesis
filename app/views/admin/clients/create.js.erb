@@ -1,0 +1,10 @@
+if(<%= ! @client.errors.empty? %>) {
+  if(<%= ! @client.errors[:user_email_conflict].empty? %>) {
+    jQuery('#merge_user_modal_dialog').modal({show:true});
+  } else {
+    jQuery('.email_address_errors').html('<%= raw @client.errors.full_messages.select{|m| m =~ /Email/}.collect{|m| "<li>#{escape_javascript(m)}</li>"}.first %>');
+    jQuery('.user_name_errors').html('<%= raw @client.errors.full_messages.select{|m| m =~ /Name/}.collect{|m| "<li>#{escape_javascript(m)}</li>"}.first %>');
+  }
+} else {
+  location.href = '/admin/clients/<%= @client.id %>';
+}

@@ -1,0 +1,84 @@
+<div style="float:left">
+  <h3>Clients</h3>
+</div>
+<div style="float:right">
+  <a href="#" class="btn btn-danger" data-controls-modal="add_client_modal_dialog">Add Client</a>
+</div>
+
+<div style="clear:both"></div>
+
+<%= render :partial => "notice" %>
+
+<% if ! @clients.empty? %>
+  <%= javascript_include_tag "jquery.tablesorter.min.js" %>
+  <script >
+    jQuery(function() {
+      jQuery("table#clients_list").tablesorter({ sortList: [[1,0]] });
+    });
+  </script>
+  <table class="table table-striped" id="clients_list">
+    <thead>
+      <th>ID</th><th>Name</th><th>Email</th><th>Created</th><th>Associated tours</th><th>Action</th>
+    </thead>
+    <tbody>
+      <% @clients.each do |client| %>
+        <tr>
+          <td><%= client.id %></td>
+          <td><%= link_to client.name, admin_client_path(client.id) %></td>
+          <td><%= client.email %></td>
+          <td><%= client.created_at.to_date %></td>
+          <td><%= client.tours.count %></td>
+          <td><%= link_to "Edit", edit_admin_client_path(client.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<div id="add_client_modal_dialog" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close" onclick="close_add_client_modal_dialog()">&times;</a>
+    <h3>Add Client</h3>
+  </div>
+  <%= form_for @client, :url => admin_clients_path, :html => {:class => "form-horizontal"}, :remote => true do |f| %>
+    <%= hidden_field_tag "merge_user", "false" %>
+  <div class="modal-body">
+    <div class="control-group">
+      <label for="user_name" class="control-label">Name:</label>
+      <div class="controls">
+        <input class="xlarge" name="user_name" id="user_name" size="30" type="text" onchange="check_name_validity(this.value, '<%= form_authenticity_token %>')"/>
+        <div class="user_name_errors"></div>
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="email_address" class="control-label">Email:</label>
+      <div class="controls">
+        <input class="xlarge" name="email_address" id="email_address" size="30" type="text" onchange="check_email_validity(this.value, '<%= form_authenticity_token %>')"/>
+        <div class="email_address_errors"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div style="float:right;margin-left:10px;margin-top:5px;">or
+      <a href="#" onclick="close_add_client_modal_dialog()">Cancel</a>
+    </div>
+    <input type="submit" class="btn btn-danger" value="Create client"/>
+  </div>
+  <% end %>
+</div>
+
+<div id="merge_user_modal_dialog" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close" onclick="close_merge_user_modal_dialog()">&times;</a>
+    <h3>Existing User</h3>
+  </div>    
+  <div class="modal-body">
+    <p>You are registering client with email which is belong to user. Do you want merge accounts and reset user's password?</p>
+  </div>
+  <div class="modal-footer">
+    <div style="float:right;margin-left:10px;margin-top:5px;">or
+      <a href="#" onclick="close_merge_user_modal_dialog()">Cancel</a>
+    </div>
+    <input type="submit" class="btn danger" onclick="$('#merge_user').val('true'); $('#new_client').submit()" value="Yes"/>
+  </div>
+</div>

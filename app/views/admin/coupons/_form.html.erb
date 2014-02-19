@@ -1,0 +1,16 @@
+  <%= error_messages_for :coupon %>
+
+  <%= f.full_error :name %>
+  <%= f.input :name, :label => 'Coupon name', :required => true %>
+
+  <%= f.input :image, :as => :file, :required => true %>
+  <%= f.full_error :image %>
+
+  <div class="image_wrapper">
+    <% if @coupon.image && @coupon.image_url %>
+      <%= image_tag @coupon.image_url, :style => 'margin: 0 0 20px 100px;' %>
+    <% end %>
+  </div>
+
+  <%= f.button :submit %>
+  <%= link_to 'Cancel', session[:return_to_coupons], {:class => "btn btn-info"} %>  

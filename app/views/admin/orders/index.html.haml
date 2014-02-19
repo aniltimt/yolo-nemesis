@@ -1,0 +1,25 @@
+%ul.breadcrumb
+  %li
+    = link_to 'Dashboard', admin_root_url
+    %span.divider /
+  %li
+    = link_to 'Users', admin_users_url
+    %span.divider /
+  %li.active
+    = @user.name_or_email
+%h1 Orders
+%table.table.table-striped
+  %thead
+    %tr
+      %th.user_id ID
+      %th Tour name
+      %th Tour country
+      %th Tour city
+      %th Tour ID
+  %tbody
+    - unless @orders.empty?
+      - @orders.each do |order|
+        = render :partial => 'order', :object => order
+    - else
+      %td{:colspan => 5}
+        This user has no orders

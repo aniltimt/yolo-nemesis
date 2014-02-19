@@ -1,0 +1,25 @@
+<div style="background-color:#FFF;width:99%;margin-top:10px;border:1px solid #CCC;border-radius:5px; -moz-border-radius: 5px;padding:5px;">
+  <div style="float:left"><h3>Associated Tours</h3></div>
+  <!--div style="float:right"><a href="#" data-controls-modal="associate_tours_modal_dialog" class="btn primary">Add Tours</a></div-->
+  <% if ! @client.tours.empty? %>
+    <div style="clear:both"></div>
+    <table class="table table-striped">
+      <thead>
+        <th>ID</th><th>Name</th><th>Status</th><th>Created</th>
+      </thead>
+      <tbody>
+      <% @client.tours.each do |tour| %>
+      <tr>
+        <td><%= tour.id %></td>
+        <td><%= tour.name %></td>
+        <td><%= tour.status %></td>
+        <td><%= tour.created_at.to_date %></td>
+      </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div style="clear:both"></div>
+    <div>No associated tours.</div>
+  <% end %>
+</div>

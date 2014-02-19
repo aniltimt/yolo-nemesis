@@ -1,0 +1,19 @@
+<ul class="breadcrumb">
+  <li>
+    <a href="/admin">Dashboard</a>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">
+    <%= link_to @pob.name, admin_pob_path(@pob) %>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">
+    <%= link_to 'Coupons', admin_pob_coupons_path(@pob) %>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">Edit <%= @coupon.name %></li>
+</ul>
+<%= simple_form_for([:admin, @pob, @coupon], :validate => true, :html => {:multipart => true, :class => 'form-horizontal', :style => "width:420px;float:left" }) do |f| %>
+  <%= render :partial => "admin/coupons/form", :locals => {:f => f} %>
+<% end %>
+

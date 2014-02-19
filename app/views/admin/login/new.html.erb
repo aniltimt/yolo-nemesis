@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Market API Admin</title>
+    <%= stylesheet_link_tag 'style' %>
+    <%= javascript_include_tag(:defaults) %>
+    <style>
+      body { background-color: #e4e4e4; }
+      input[type='text'],input[type='password'] { font-size: 24px; }
+      .alert {color: red;}
+      .notice {color: green;}
+    </style>
+  </head>
+  <body>
+    <div class="login_container">
+      <div class="curved drop-shadow">
+        <%= form_tag '/admin/login' do -%>
+          <p style="text-align:center;margin-bottom:15px"><img src='/images/logo.jpg' title='Digital Footsteps' alt='Digital Footsteps'/></p>
+
+          <p><%#= error_messages_tag %></p>
+          <p class="notice"><%= flash[:notice] %></p>
+          <p class="alert"><%= flash[:alert] %></p>
+          <p><%= label_tag :login %></p>
+          <p><%= text_field_tag :login, @login %></p>
+
+          <p><%= label_tag :password %></p>
+          <p><%= password_field_tag :password, @password %></p>
+
+          <p><%= check_box_tag :remember_me, '', false, :style => "width:auto;margin:2px;" %> <%= label_tag :remember_me %></p>
+
+          <p><%= submit_tag "Sign in" %></p>
+        <% end -%>
+
+        <%#= render :partial => "shared/devise_links" %>
+      </div>
+    </div>
+  </body>
+</html>

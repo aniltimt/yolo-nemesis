@@ -1,0 +1,25 @@
+<% if @user.errors.empty? %>
+<h2>Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.submit "Sign up" %></div>
+<% end %>
+
+<%= render :partial => "devise/shared/links" %>
+<% else %>
+  <%- if !@user.errors[:email].blank? -%>
+ERROR: Email <%= @user.errors[:email].first -%>
+  <%- elsif !@user.errors[:password].blank? -%>
+ERROR: Password <%= @user.errors[:password].first -%>
+  <%- else -%>
+ERROR
+  <%- end -%>
+<% end %>

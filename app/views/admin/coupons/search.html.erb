@@ -1,0 +1,46 @@
+<ul class="breadcrumb">
+  <li>
+    <a href="/admin">Dashboard</a>
+    <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to 'Pobs', admin_pobs_url %>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">Search coupons</li>
+</ul>
+<div class="left">
+  <%= form_tag "/admin/pobs/coupons/search", :method => :get do -%>
+    <div class="filter">
+      <div class="row">
+        <div class="span1">Name: </div><div class="span3"><%= text_field_tag 'coupon[name]', @coupon_name %></div>
+        <div class="span1"><%= submit_tag "Filter", :class => "btn btn-primary" %></div>
+        <div class="span1"><a href="/admin/pobs/coupons/search" class="btn btn-danger">Reset</a></div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  <% end -%>
+  <h2 style="text-align:center">Coupons count: <%= @coupons_count %></h2>
+  <table class="table table-striped">
+    <thead>
+      <th>#</th>
+      <th>Name</th>
+      <th>Pob</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      <% @coupons.each do |coupon| %>
+      <tr>
+        <td><%= coupon.id %></td>
+        <td><%= link_to(coupon.name, edit_admin_pob_coupon_path(coupon.pob, coupon)) if coupon.pob %></td>
+        <td><%= link_to(coupon.pob.name, admin_pob_path(coupon.pob)) if coupon.pob %></td>
+        <td><%= link_to("Edit", edit_admin_pob_coupon_path(coupon.pob, coupon), :class => "btn btn-info") if coupon.pob %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @coupons %>
+</div>
+
+
+

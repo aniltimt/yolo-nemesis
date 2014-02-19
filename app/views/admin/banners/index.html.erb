@@ -1,0 +1,37 @@
+<ul class="breadcrumb">
+  <li>
+    <a href="/admin">Dashboard</a>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">
+    <%= link_to @pob.name, admin_pob_path(@pob) %>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">Banners</li>
+</ul>
+<div style="float:right">
+  <%= link_to "Create new banner", new_admin_pob_banner_path, :class => "btn btn-primary" %>
+</div>
+<div class="left">
+  <table class="table table-striped">
+    <thead>
+      <th>#</th>
+      <th>Name</th>
+      <th width="150px">Action</th>
+    </thead>
+    <tbody>
+      <% @banners.each do |banner| %>
+      <tr>
+        <td><%= banner.id %></td>
+        <td><%= link_to banner.name, edit_admin_pob_banner_path(@pob, banner) %></td>
+        <td>
+          <%= link_to "Edit", edit_admin_pob_banner_path(@pob, banner), :class => "btn btn-info" %>
+          <%= link_to "Delete", admin_pob_banner_path(@pob, banner), :method => :delete, :confirm => "Are you sure you want to delete this banner?", :class => "btn btn-danger" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @banners %>
+</div>
+

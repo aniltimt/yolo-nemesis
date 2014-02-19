@@ -1,0 +1,4 @@
+if(! closing_add_client_modal_dialog) {
+  jQuery('.email_address_errors').html('<%= raw escape_javascript(@message) %>');
+  closing_add_client_modal_dialog = false;
+}

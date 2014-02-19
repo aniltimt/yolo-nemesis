@@ -1,0 +1,95 @@
+  <%= error_messages_for :pob %>
+
+  <%= f.full_error :name %>
+  <%= f.input :name, :label => 'POBs title', :required => true %>
+
+  <%= f.input :country, :as => :select, :collection => @countries, :required => true, :input_html => { :onchange => "jQuery('#pob_city').val(''); jQuery('#pob_address').val(''); zoom_to_selected_country_enable_city_disable_address()" } %>
+
+  <%= f.input :city, :required => false %>
+  <%= f.full_error :city %>
+
+  <%= f.input :address  %>
+  <%= f.full_error :address %>
+
+  <%= f.input :longitude, :as => :float, :required => true %>
+  <%= f.full_error :longitude %>
+
+  <%= f.input :latitude, :as => :float, :required => true %>
+  <%= f.full_error :latitude %>
+
+  <%= f.input :open_hours, :label => 'Working hours', :required => false %>
+  <%= f.full_error :open_hours %>
+
+  <%= f.input :url, :label => 'Website', :required => false %>
+  <%= f.full_error :url %>
+
+  <%= f.input :email, :label => 'Email', :required => false %>
+  <%= f.full_error :email %>
+
+  <%= f.input :phone, :label => 'Phone', :required => false %>
+  <%= f.full_error :phone %>
+
+  <%= f.input :price_range, :label => 'Price range', :required => false %>
+  <%= f.full_error :price_range %>
+
+  <%= f.full_error :pob_categories %>
+  <div class="control-group check_boxes required">
+    <label class="check_boxes required control-label"><abbr title="required">*</abbr> Pob categories</label>
+    <div class="controls">
+    <% @top_categories.each do |top_category| %>
+      <label class="checkbox">
+        <input class="check_boxes required" id="pob_pob_category_ids_<%= top_category.id %>" name="pob[pob_category_ids][]" type="checkbox" value="<%= top_category.id %>" <%= 'checked="checked"' if @pob.pob_category_ids.include?(top_category.id) %> onclick="toggle_subcategories('<%= top_category.id %>')"><%= top_category.name %>
+      </label>
+      <% top_category.subcategories.each do |subcategory| %>
+      <label class="checkbox" style="margin-left:20px">
+        <input class="check_boxes required <%= top_category.id %>_subcategories" id="pob_pob_category_ids_<%= subcategory.id %>" name="pob[pob_category_ids][]" type="checkbox" <%= 'checked="checked"' if @pob.pob_category_ids.include?(subcategory.id) %> value="<%= subcategory.id %>" onclick="disable_top_category_if_subcats_unchecked('<%= top_category.id %>')"><%= subcategory.name %>
+      </label>
+      <% end %>  
+    <% end %>
+    </div>
+  </div>
+
+  <%= f.input :description, :required => false %>
+  <%= f.full_error :description %>
+
+  <% if @pob.icon && @pob.icon_url %>
+    <%= image_tag(@pob.icon_url) %>
+  <% end %>
+
+  <%= f.input :icon, :as => :file, :label => 'Thumbnail', :required => false %>
+  <%= f.full_error :icon %>
+
+
+  <%= f.input :txt_file, :as => :file, :label => 'Txt file', :required => false %>
+  <%= f.full_error :icon %>
+  <% if @pob.txt_file %>
+    <span style="margin-left: 180px;"><%= @pob.txt_file.url %></span>
+  <% end %>
+
+  <%= f.hidden_field :icon_cache %>
+
+  <% @pob.pob_images.build if @pob.pob_images.blank? %>
+
+  <p style="font-size:18px;text-align:center;margin-top:40px;">POB images</p>
+
+  <%= f.simple_fields_for(@pob.pob_images.blank? ? :pob_images : @pob.pob_images.first) do |pob_images_f| %>
+    <% (1..5).map do |i| %>
+    <% pob_image_id = @pob.pob_images.try(:[], i).nil? ? i : @pob.pob_images.try(:[], i).id %>
+    <div style="padding:5px;border:1px solid #ccc;margin:5px;">
+      <p style="float:right"><%= link_to "X", 'javascript:void(0)', :onclick => "delete_pob_image(#{pob_image_id})" %></p>
+
+      <p style="font-size:18px;">#<%= i %></p>
+      <% if ! @pob.pob_images.try(:[], i).try(:image_url).blank? %>
+      <div style="margin:10px;float:left" id="pob_image_image_<%= pob_image_id %>">
+        <%= image_tag(@pob.pob_images[i].image_url(:smaller_thumb)) %>
+      </div>
+      <% end %>
+
+      <%= pob_images_f.input :image, :as => :file, :required => false, :input_html => { :id => "pob_image_input_#{pob_image_id}", :name => "pob[pob_images_attributes][#{pob_image_id}][image]"} %>
+      <%#= pob_images_f.hidden_field :image_cache, :id => "pob_image_cache_#{i}" %>
+    </div>
+    <% end %>
+  <% end %>
+
+  <%= f.button :submit %>
+  <%= link_to 'Cancel', session[:return_to_pob], {:class => "btn btn-info"} %>  

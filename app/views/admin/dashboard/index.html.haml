@@ -1,0 +1,62 @@
+%ul.breadcrumb
+  %li.active
+    Dashboard
+%h2 Statistics
+%h3 Users
+.row
+  .span16
+    .row
+      .span8
+        %h4 Registrations
+        #user_registrations
+      .span8
+        %h4 Top 5 buyers
+        #user_top_buyers
+        = link_to "All top buyers", top_buyers_admin_statistics_url
+%h3 Tours
+.row
+  .span16
+    .row
+      .span8
+        %h4 Top 5 popular
+        #tours_top_popular
+        = link_to "All top popular tours", top_popular_tours_admin_statistics_url
+
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    // Users registrations
+
+    var usersRegistrationsData = new google.visualization.DataTable();
+    usersRegistrationsData.addColumn('string', 'Year');
+    usersRegistrationsData.addColumn('number', 'Registrations');
+
+    usersRegistrationsData.addRows(#{@registrations.to_json});
+
+    var usersRegistrationsChart = new google.visualization.AreaChart(document.getElementById('user_registrations'));
+    usersRegistrationsChart.draw(usersRegistrationsData, {vAxis: {minValue: 0}, pointSize: 5, width: 400, height: 240, legend: 'bottom'});
+
+    // Users top buyers
+
+    var usersTopBuyersData = new google.visualization.DataTable();
+    usersTopBuyersData.addColumn('string', 'Buyer');
+    usersTopBuyersData.addColumn('number', 'Tours bought');
+
+    usersTopBuyersData.addRows(#{@top_buyers.map { |u| [u.name_or_email, u.orders.count] }.to_json});
+
+    var usersTopBuyersChart = new google.visualization.BarChart(document.getElementById('user_top_buyers'));
+    usersTopBuyersChart.draw(usersTopBuyersData, {width: 400, height: 240, legend: 'bottom'});
+
+    // Tours top popular
+
+    var toursTopPopularData = new google.visualization.DataTable();
+    toursTopPopularData.addColumn('string', 'Tour');
+    toursTopPopularData.addColumn('number', 'Count of orders');
+
+    toursTopPopularData.addRows(#{@top_popular.map { |t| [t.name, t.orders.count] }.to_json});
+
+    var toursTopPopularChart = new google.visualization.BarChart(document.getElementById('tours_top_popular'));
+    toursTopPopularChart.draw(toursTopPopularData, {width: 400, height: 240, legend: 'bottom'});
+  }

@@ -1,0 +1,57 @@
+<table class="table table-striped">
+  <% unless @tours.empty? %>
+    <thead>
+      <tr>
+        <th class="tour_id">ID</td>
+        <th>Tour</td>
+        <th># of orders</td>
+        <th># of POBs in last bundle</td>
+        <th class="tour_actions">Action</td>
+        <th class="tour_actions">Published on GP</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tours.each do |tour| %>
+        <%= render :partial => 'tour', :object => tour %>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>
+<%= hidden_field_tag 'auth_token', form_authenticity_token %>
+
+<% if @total_tours > Admin::ToursController::NUM_OF_TOURS_PER_PAGE %>
+<div class="pagination">
+  <ul>
+    <li class="prev <%= @current_page.to_i == 1 ? 'disabled' : '' %>">
+      <% if @current_page.to_i == 1 %>
+        <a href="javascript:void(0)">&larr; Previous</a>
+      <% else %>
+        <%= link_to raw('&larr; Previous'), admin_tours_show_tours_path(@type, @current_page.to_i - 1), {:remote => true} %>
+      <% end %>
+    </li>
+    <% before_ellipsis, after_ellipsis = false, false %>
+    <% @num_of_pages.times do |i| %>
+      <% if ((i < (@current_page.to_i-4)) && !(0..2).include?(i)) %>
+        <% if ! before_ellipsis %>
+          <% before_ellipsis = true %>
+          <li class="disabled"><a href="#">...</a></li>
+        <% end %>
+      <% elsif ((i > (@current_page.to_i+2)) && !((@num_of_pages-3)..@num_of_pages).include?(i)) %>
+        <% if ! after_ellipsis %>
+          <% after_ellipsis = true %>
+          <li class="disabled"><a href="#">...</a></li>          
+        <% end %>
+      <% else %>
+        <li <%= (@current_page.to_i == (i+1)) ? "class=active" : '' %>><%= link_to (i + 1), admin_tours_show_tours_path(@type, i+1), {:remote => true} %></li>
+      <% end %>
+    <% end %>
+    <li class="next <%= @current_page.to_i == @num_of_pages ? 'disabled' : '' %>">
+      <% if @current_page.to_i == @num_of_pages %>
+        <a href="javascript:void(0)">Next &rarr;</a>
+      <% else %>
+        <%= link_to raw('Next &rarr;'), admin_tours_show_tours_path(@type, @current_page.to_i + 1), {:remote => true} %>
+      <% end %>
+    </li>
+  </ul>
+</div>
+<% end %>

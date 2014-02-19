@@ -1,0 +1,46 @@
+<ul class="breadcrumb">
+  <li>
+    <a href="/admin">Dashboard</a>
+    <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to 'Pobs', admin_pobs_url %>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">Search banners</li>
+</ul>
+<div class="left">
+  <%= form_tag "/admin/pobs/banners/search", :method => :get do -%>
+    <div class="filter">
+      <div class="row">
+        <div class="span1">Name: </div><div class="span3"><%= text_field_tag 'banner[name]', @banner_name %></div>
+        <div class="span1">Type: </div><div class="span3"><%= select_tag 'banner[type]', options_for_select({'' => 'Choose type'}.merge(Banner::TYPE_CHOICES).invert, @banner_type) %></div>
+        <div class="span1"><%= submit_tag "Filter", :class => "btn btn-primary" %></div>
+        <div class="span1"><a href="/admin/pobs/banners/search" class="btn btn-danger">Reset</a></div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  <% end -%>
+  <h2 style="text-align:center">Banners count: <%= @banners_count %></h2>
+  <table class="table table-striped">
+    <thead>
+      <th>#</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Pob</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      <% @banners.each do |banner| %>
+      <tr>
+        <td><%= banner.id %></td>
+        <td><%= link_to(banner.name, edit_admin_pob_banner_path(banner.pob, banner)) if banner.pob %></td>
+        <td><%= Banner::TYPE_CHOICES[banner.banner_type] %></td>
+        <td><%= link_to(banner.pob.name, admin_pob_path(banner.pob)) if banner.pob %></td>
+        <td><%= link_to("Edit", edit_admin_pob_banner_path(banner.pob, banner), :class => "btn btn-info") if banner.pob %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @banners %>
+</div>

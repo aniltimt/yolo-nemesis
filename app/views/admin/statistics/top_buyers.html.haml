@@ -1,0 +1,18 @@
+%ul.breadcrumb
+  %li
+    = link_to 'Dashboard', admin_root_url
+    %span.divider /
+  %li.active
+    Top buyers
+%table.table.table-striped
+  - unless @top_buyers.empty?
+    %thead
+      %tr
+        %th.user_id ID
+        %th Name or E-Mail
+        %th Registered via
+        %th Number of bought tours
+        %th.user_actions Bought tours
+    %tbody
+      - @top_buyers.each do |user|
+        = render :partial => 'user', :object => user

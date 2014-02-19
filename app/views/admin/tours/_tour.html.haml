@@ -1,0 +1,20 @@
+%tr
+  %td
+    = tour.id
+  %td
+    = tour.name
+    - if tour.is_ubertour
+      %span{:style=>"color:red;font-weight:bold;"} [Ubertour]
+  %td
+    = tour.orders_count
+  %td
+    = tour.get_last_pobs_bundle.try(:pobs).try(:count)
+  %td{:id => "action_#{tour.id}"}
+    - if tour.free?
+      = render :partial => 'paid', :locals => {:tour => tour}
+    - else
+      = render :partial => 'free', :locals => {:tour => tour}
+  %td.is_published
+    = check_box_tag "is_published_#{tour.id}", tour.id, tour.is_published
+    
+    

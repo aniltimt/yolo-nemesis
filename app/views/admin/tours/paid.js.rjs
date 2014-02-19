@@ -1,0 +1,1 @@
+page << "$('#action_#{@tour.id}').html('#{escape_javascript(render :partial => 'free', :locals => {:tour => @tour})}')"

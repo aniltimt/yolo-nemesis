@@ -1,0 +1,59 @@
+<div style="float:left">
+  <h3><%= link_to "Clients", admin_clients_path %>: <%= @client.name %></h3>
+</div>
+<!--div style="float:right">
+  <a href="#" class="btn danger" data-controls-modal="delete_client_modal_dialog">Delete Client</a>
+</div-->
+
+<div style="clear:both"></div>
+
+<div class="client_info">
+  <h4>Edit Client Info</h4>
+  <div class="details">
+    <%= form_for @client, :url => admin_client_path(@client.id), :method => :put, :html => {:class => 'form-horizontal'}, :remote => true do |f| %>
+      <div class="control-group">
+        <label for="user_name" class="control-label">Client name:</label>
+        <div class="controls">
+          <%= f.text_field :name, :class => "xlarge", :id => "user_name", :onchange => "jQuery.post('/admin/clients/check_name_validity', {user_name: this.value, authenticity_token: '#{form_authenticity_token}', client_id: #{ @client.id }})" %>
+          <div class="user_name_errors"></div>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="email_address" class="control-label">Email address:</label>
+        <div class="controls">
+          <%= f.text_field :email, :class => "xlarge", :id => "email_address", :onchange => "jQuery.post('/admin/clients/check_email_validity', {email_address: this.value, authenticity_token: '#{form_authenticity_token}', client_id: #{ @client.id }});" %>
+          <div class="email_address_errors"></div>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="password" class="control-label">Password:</label>
+        <div class="controls">
+          <%= f.text_field :password, :class => "xlarge", :id => "user_password", :onchange => "check_password_validity(this.value, '#{form_authenticity_token}')" %>
+          <div class="user_password_errors"></div>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="api_key" class="control-label">API key:</label>
+        <div class="controls">
+          <input type="text" value="<%=@client.api_key%>" class="xlarge disabled" id="api_key" disabled/>
+        </div>
+      </div>
+      <div class="clearfix" class="control-label">
+        <div style="text-align:center">
+          <div class="span8"><input type="submit" class="btn btn-primary" value="Save"/>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;<%= link_to "Cancel", admin_client_path(@client.id) %></span>
+        </div>
+      </div>
+
+      <%#= render :partial => "associated_tours" %>
+
+      <div style="clear:both"></div>
+      <%#= render :partial => "associated_users" %>
+    <% end %>
+  </div>
+</div>
+
+<% if @client.tours.count == 0 %>
+<%= render :partial => "delete_client_modal_dialog" %>
+<% end %>
+
+<%= render :partial => "associated_tours_modal_dialog" %>

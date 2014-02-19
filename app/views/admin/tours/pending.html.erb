@@ -1,0 +1,38 @@
+<ul class="breadcrumb">
+  <li>
+    <a href="/admin">Dashboard</a>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">
+    <%= link_to 'Tours', admin_tours_url %>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">Pending tours</li>
+</ul>
+<div class="left">
+  <% if @tours.count > 0 %>
+  POBs were changed and following tours were affected.
+  <form action="/admin/tours/rebuild_bundles" method="get" id="pending_tours">
+    <table class="table table-striped">
+      <thead>
+        <th>Check</th>
+        <th style="width: 90%;">Name</th>
+      </thead>
+      <tbody>
+        <% @tours.each do |tour| %>
+        <tr>
+          <td><input type="checkbox" name="tours[]" value="<%= tour.id %>" /></td>
+          <td><%= tour.name %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class"row" style="margin-bottom: 10px;"><a href="#" onclick="return toggle_pending_tours_checkboxes(true);">Select all</a> / <a href="#" onclick="return toggle_pending_tours_checkboxes(false);">Unselect all</a></div>
+    <p><%= submit_tag "Update selected", :class => "btn btn-primary" %></p>
+  </form>
+  <% else %>
+    No pending tours
+  <% end %>
+</div>
+
+

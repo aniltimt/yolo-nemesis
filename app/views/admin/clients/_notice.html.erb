@@ -1,0 +1,9 @@
+<% [:notice, :error].each do |flash_type| %>
+  <% if ! flash[flash_type].blank? %>
+  <div class="alert alert-<%= flash_type == :notice ? 'success' : 'error' %>">
+    <a class="close" href="#" onclick="jQuery(this).parent().fadeOut('slow')">×</a>
+    <p><%= flash[flash_type] %></p>
+  </div>
+  <div style="clear:both"></div>
+  <% end %>
+<% end %>

@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+require File.expand_path('../../config/environment',  __FILE__)
+
+cache_dir = File.join(Rails.public_path, 'v1')
+
+FileUtils.mkdir_p(cache_dir) unless File.exists?(cache_dir)
+
+local_storage = Places::Storage::File.new(File.join(Rails.public_path, 'v1', 'places.xml'))
+remote_storage = Places::Storage::Aws.new(AWS_PLACES_BUCKET, 'places.xml', local_storage.etag)
+
+synchronizer = Places::Synchronizer.new(remote_storage, local_storage)
+
+synchronizer.run
+
+XmlTourParser.new(local_storage.read).accept(Tour) if synchronizer.fresh_data?

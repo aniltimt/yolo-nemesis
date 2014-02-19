@@ -1,0 +1,29 @@
+<table class="table table-striped">
+  <thead><th>Generation index</th><th>Number of generated users</th><th>Created at</th><th>Download as .csv</th></thead>
+  <tbody>
+  <% @client_users.group_by(&:generation_index).sort_by{|u| u[0]}.reverse.each do |u| %>
+    <tr>
+      <td><%= u[0] %></td>
+      <td><%= u[1].count %></td>
+      <td><%= u[1][0].created_at %></td>
+      <td><%= link_to "Download as .csv", admin_clients_download_csv_userlist_path(@client.id, u[0]),:class => "btn primary" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%# if @client.users.count > Admin::ClientsController::NUM_OF_USERS_PER_PAGE %>
+<!--div class="pagination">
+  <ul>
+    <li class="prev <%= @current_page.to_i == 1 ? 'disabled' : '' %>">
+      <%= link_to raw('&larr; Previous'), admin_clients_show_users_path(@client.id, (@current_page.to_i - 1)), {:remote => true} %>
+    </li>
+    <% @num_of_pages.times do |i| %>
+      <li <%= (@current_page.to_i == (i+1)) ? "class='active'" : '' %>><%= link_to (i + 1), admin_clients_show_users_path(@client.id, (i+1)), {:remote => true} %></li>
+    <% end %>
+    <li class="next <%= @current_page.to_i == @num_of_pages ? 'disabled' : '' %>">
+      <%= link_to raw('Next &rarr;'), admin_clients_show_users_path(@client.id, (@current_page.to_i + 1)), {:remote => true} %>
+    </li>
+  </ul>
+</div-->
+<%# end %>
